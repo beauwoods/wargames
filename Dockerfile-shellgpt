@@ -1,0 +1,2 @@
+FROM python:3.12.0b4-alpine3.18
+RUN apk add --no-cache libc6-compat && pip install shell-gpt
