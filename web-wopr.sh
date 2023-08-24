@@ -1,4 +1,4 @@
-sudo env "PATH=$PATH" \
+sudo env "PATH=$PATH:$HOME/go/bin" \
 	gotty \
 	-p 1337 \
 	--title-format joshua@WOPR \
@@ -10,5 +10,5 @@ sudo env "PATH=$PATH" \
 	-v ~/wargames:/root/wargames \
 	-v ~/.config/shell_gpt:/root/.config/shell_gpt \
 	-w /root/wargames \
-	--rm wargames:slimmy-nogpt \
+	--rm wargames:nogpt \
 	/root/wargames/wopr
