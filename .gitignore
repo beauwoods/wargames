@@ -1,0 +1,17 @@
+# Compiled game binaries (built by recompile.sh / install.sh)
+/bank
+/dialer
+/imsai8080
+/pan-am
+/school
+/wopr
+
+# Runtime copies of data files — canonical versions live in C/src/ and are
+# copied to the repo root by install.sh; the root copies mutate at runtime.
+/students.txt
+/systems_found.txt
+/systems_list.txt
+
+# Logs / runtime output
+*.log
+nohup.out
