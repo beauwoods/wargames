@@ -1,6 +1,6 @@
 # joshua
 
-This repo is a lightly modified version of the quite excellent [Wargames Simulator by zompiexx](https://github.com/zompiexx/wargames/tree/9574b6a63c4f9f3df18da44355deb2aec1326efe) (which is still being actively built and updated, so will differ significantly), done in a hurry for **[DEF CON 31](https://defcon.org/html/defcon-31/dc-31-index.html)**. The following adaptations were made to original code (going from memory here):
+This repo is a lightly modified version of the quite excellent [Wargames Simulator by zompiexx](https://github.com/zompiexx/wargames/tree/9574b6a63c4f9f3df18da44355deb2aec1326efe) (which was actively developed through 2023 — its last code change was October 2023 — so it may differ from this snapshot), done in a hurry for **[DEF CON 31](https://defcon.org/html/defcon-31/dc-31-index.html)**. The following adaptations were made to original code (going from memory here):
 
 * Added support to run this in Docker, to isolate each environment/install for security.
 * Create custom Docker containers with minimal installed packages to reduce size, memory, processor, and attack surface.

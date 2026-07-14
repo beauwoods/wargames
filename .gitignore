@@ -8,6 +8,7 @@
 
 # Runtime copies of data files — canonical versions live in C/src/ and are
 # copied to the repo root by install.sh; the root copies mutate at runtime.
+/reservations.txt
 /students.txt
 /systems_found.txt
 /systems_list.txt
