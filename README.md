@@ -40,6 +40,13 @@ sudo ./uninstall-service.sh      # stop, disable, and remove
 Note: don't run `web-wopr.sh` by hand while the service is up — both bind port
 1337, and the second one to start dies with `address already in use`.
 
+The spawned game container is locked down since it takes anonymous input from
+the internet: `--network none`, `--cap-drop=ALL`, `--security-opt
+no-new-privileges`, runs as `nobody` (`--user 65534`), a read-only rootfs and
+read-only code mount, and pid/memory/cpu caps. This works because `wopr` does no
+file I/O; a game that writes files (dialer/school) would need a writable volume
+and a real user instead.
+
 ### Serving multiple hostnames
 
 gotty binds to `0.0.0.0`, so it already answers to any hostname that resolves

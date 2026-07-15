@@ -12,6 +12,12 @@
 # This is the reproducible version of the one-off commands we ran by hand:
 # it detects the gotty/docker paths and the invoking user, writes the unit,
 # then enables + starts it. Safe to re-run to update the unit.
+#
+# The spawned game container is locked down: no network, dropped Linux caps,
+# no-new-privileges, runs as "nobody", read-only rootfs + code mount, and
+# pid/memory/cpu caps. This is safe because wopr does no file I/O — if you
+# point this at a game that writes files (dialer/school), you'll need a
+# writable data volume and probably a real user, so revisit these flags.
 set -euo pipefail
 
 # --- tunables (override via environment) ---
@@ -87,11 +93,14 @@ ExecStart=$GOTTY_BIN \\
     --close-timeout 1 \\
     -w \\
     $DOCKER_BIN run -it \\
-        -v $RUN_HOME/wargames:/root/wargames \\
-        -v $RUN_HOME/.config/shell_gpt:/root/.config/shell_gpt \\
-        -w /root/wargames \\
+        --network none \\
+        --pids-limit=128 --memory=96m --memory-swap=96m --cpus=0.5 \\
+        --read-only --tmpfs /tmp:size=8m \\
+        --cap-drop=ALL --security-opt no-new-privileges \\
+        --user 65534:65534 \\
+        -v $RUN_HOME/wargames:/wargames:ro -w /wargames \\
         --rm $IMAGE \\
-        /root/wargames/wopr
+        /wargames/wopr
 
 # Crash handling: always restart, with a short backoff.
 Restart=always
