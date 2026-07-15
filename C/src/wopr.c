@@ -82,12 +82,13 @@ void hackers_unscripted() {
     delayed_print("\n\nTHE ONLY WINNING MOVE IS");
     usleep(500000); delayed_print("."); usleep(500000); delayed_print("."); usleep(500000); delayed_print(".");
     usleep(500000); 
-    delayed_print("\n\nTO JOIN US FOR A PRIVATE SCREENING OF DEFRAG: HACKERS UNSCRIPTED\n");
-    delayed_print("A COLUMBIA UNIVERSITY DOCUMENTARY CAPTURING HACKERS' REFLECTIONS ON MEDIA PORTRAYALS OVER THE PAST 40 YEARS\n");
-    usleep(1000000); 
-    delayed_print("SUNDAY, AUGUST 13, 14:30\n");
+    delayed_print("\n\nTO PRESS PLAY.\n");
     usleep(1000000);
-    delayed_print("IN THE POLICY @ DEF CON ATRIUM");
+    delayed_print("\nTHE PREMIERE OF DEFRAG: HACKERS UNSCRIPTED HAS COME AND GONE -\n");
+    delayed_print("A COLUMBIA UNIVERSITY DOCUMENTARY CAPTURING HACKERS' REFLECTIONS ON MEDIA PORTRAYALS OVER THE PAST 40 YEARS.\n");
+    usleep(1000000);
+    delayed_print("THE FILM IS NOW DECLASSIFIED. WATCH IT AT:\n");
+    delayed_print("https://youtu.be/NYvHWcQsIRE\n");
     usleep(2000000);
     delayed_print("\n\n\n\nHOW ABOUT A NICE GAME OF GLOBAL THERMONUCLEAR WAR?\n\n\n");
 }
