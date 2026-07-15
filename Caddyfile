@@ -1,0 +1,38 @@
+# Caddyfile — HTTPS reverse proxy in front of the gotty WOPR web console,
+# serving on port 1337 ONLY (nothing on 80/443).
+#
+# Because 80 and 443 are closed, certificates are obtained via the ACME DNS-01
+# challenge (Let's Encrypt) using the Cloudflare API — the HTTP-01 and
+# TLS-ALPN-01 challenges can't be used without an open 80/443. Caddy auto-renews.
+#
+# Prerequisites:
+#   1. A Caddy binary that includes the Cloudflare DNS provider (the apt build
+#      does NOT). Install it in place with:
+#        sudo caddy add-package github.com/caddy-dns/cloudflare
+#   2. A Cloudflare API token scoped to Zone > DNS > Edit for your zone, made
+#      available to Caddy as $CF_API_TOKEN. Store it out of this file, e.g.
+#      /etc/caddy/cloudflare.env (chmod 600) wired in via a systemd drop-in:
+#        /etc/systemd/system/caddy.service.d/cloudflare.conf
+#          [Service]
+#          EnvironmentFile=/etc/caddy/cloudflare.env
+#   3. gotty running on an internal loopback port (see below), installed with:
+#        ADDRESS=127.0.0.1 PORT=1338 sudo ./install-service.sh
+#   4. DNS A records for the hostnames pointing at this box, set to "DNS only"
+#      (grey cloud) in Cloudflare — the orange-cloud proxy does NOT forward
+#      port 1337, so it must be bypassed.
+#
+# Install:  sudo cp Caddyfile /etc/caddy/Caddyfile && sudo systemctl restart caddy
+#
+# Change the hostnames and the reverse_proxy port to match your setup.
+
+{
+	# Obtain/renew certs via the Cloudflare DNS challenge (works with 80/443 closed).
+	acme_dns cloudflare {env.CF_API_TOKEN}
+	# Don't open port 80 for the HTTP->HTTPS redirect vhost.
+	auto_https disable_redirects
+}
+
+wopr.falken.org:1337, joshua.falken.org:1337 {
+	# gotty listens on loopback 1338; Caddy owns the public 1337.
+	reverse_proxy 127.0.0.1:1338
+}
